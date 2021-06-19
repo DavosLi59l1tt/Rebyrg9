@@ -2,6 +2,7 @@ import scipy.misc
 import numpy as np
 import os
 from glob import glob
+import imageio
 
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
@@ -41,7 +42,6 @@ def load_mnist(size=64):
     # x = np.expand_dims(x, axis=-1)
 
     x = np.asarray([scipy.misc.imresize(x_img, [size, size]) for x_img in x])
-    # x = np.asarray([scipy.misc.imresize(x_img, [size, size]) for x_img in x])
     x = np.expand_dims(x, axis=-1)
     return x
 
@@ -69,7 +69,7 @@ def load_data(dataset_name, size=64) :
     elif dataset_name == 'cifar10' :
         x = load_cifar10(size)
     else:
-        data_dir = os.path.join("/home/zhonglin/BigGAN/dataset", dataset_name)
+        data_dir = os.path.join("./dataset", dataset_name)
         dirs = os.listdir(data_dir)
         data = list()
         for dir in dirs:
@@ -80,7 +80,7 @@ def load_data(dataset_name, size=64) :
 
 
 def preprocessing(x, size):
-    x = scipy.misc.imread(x, mode='RGB')
+    x = imageio.imread(x, format='RGB')
     x = scipy.misc.imresize(x, [size, size])
     x = normalize(x)
     return x
@@ -115,10 +115,10 @@ def merge(images, size):
         raise ValueError('in merge(images,size) images parameter ''must have dimensions: HxW or HxWx3 or HxWx4')
 
 def imsave(images, size, path):
-    return scipy.misc.imsave(path, merge(images, size))
+    return imageio.imwrite(path, merge(images, size))
 
 def test_imsave(images, size, path):
-    return scipy.misc.imsave(path, images)
+    return imageio.imwrite(path, images)
 
 def inverse_transform(images):
     return (images+1.)/2.
