@@ -1,6 +1,8 @@
 #!/bin/sh
+### Modelarts Platform train command
 export TF_CPP_MIN_LOG_LEVEL=2        ## Tensorflow api print Log Config
 export SLOG_PRINT_TO_STDOUT=0        ## export all logs to stdout terminal print 0:off 1:on
+
 python3.7 ${1}/main.py \
     --phase train \
     --dataset cat \
