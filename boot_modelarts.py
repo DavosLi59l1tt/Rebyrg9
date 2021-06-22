@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     ## start to train
     start = datetime.datetime.now()
-    bash_header = os.path.join(code_dir, 'run_1p.sh')
+    bash_header = os.path.join(code_dir, 'scripts/run_modelarts_1p.sh')
     bash_command = 'bash %s %s' % (bash_header, code_dir)
     print("bash command:", bash_command)
     os.system(bash_command)

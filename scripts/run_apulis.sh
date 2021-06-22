@@ -6,8 +6,7 @@ export ASCEND_SLOG_PRINT_TO_STDOUT=0
 export ASCEND_GLOBAL_LOG_LEVEL=3
 export TF_CPP_MIN_LOG_LEVEL=2        ## Tensorflow api print Log Config
 
-currentDir=$(cd "$(dirname "$0")"; pwd)
-# currentDir=$(cd "$(dirname "$0")"; cd ..; pwd)
+currentDir=$(cd "$(dirname "$0")"; cd ..; pwd)
 echo "===>>>Python boot file dir: ${currentDir}"
 
 python3 ${currentDir}/main.py \
