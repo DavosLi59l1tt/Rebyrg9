@@ -15,7 +15,7 @@ Simple Tensorflow implementation of "Large Scale GAN Training for High Fidelity 
   
 - 下载数据集和训练代码
     
-    训练的部分数据集和训练代码可以通过链接下载到本地，并解压到当前文件夹。BigGAN压缩包下有源码BigGANProject和数据集zip。数据集cat.zip不用解压。
+    训练的部分数据集和训练代码可以通过[链接下载](https://zhonglin-public.obs.cn-north-4.myhuaweicloud.com/BigGAN.rar)到本地，并解压到当前文件夹。BigGAN压缩包下有源码BigGANProject和数据集zip。数据集cat.zip不用解压。
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/154527_d07136ec_1482256.png "屏幕截图.png")
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/154703_99054883_1482256.png "屏幕截图.png")
 
@@ -60,6 +60,8 @@ Simple Tensorflow implementation of "Large Scale GAN Training for High Fidelity 
     运行成功，可以在Pycharm的界面上看到如下截图的打印。
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161847_262910b0_1482256.png "屏幕截图.png")
 
+    同时，可以进入[ModelArts控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，查看网络训练阶段的NPU利用率。
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/163406_f05586d7_1482256.png "屏幕截图.png")
 
 ## 其他<a name="section7271512256"></a>
 1. Modelarts的运行机理
@@ -90,7 +92,7 @@ Simple Tensorflow implementation of "Large Scale GAN Training for High Fidelity 
 
    [https://console.huaweicloud.com/modelarts/?region=cn-north-4\#/trainingJobs](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)
 
-    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0117/221713_8b7e0520_1482256.png "屏幕截图.png")
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/163515_e9fc5865_1482256.png "屏幕截图.png")
 
    同时，更多详细的基于pycharm toolkit工具指南，可以参看链接[https://support.huaweicloud.com/tg-modelarts/modelarts\_15\_0007.html](https://support.huaweicloud.com/tg-modelarts/modelarts_15_0007.html)
 
@@ -104,3 +106,7 @@ Simple Tensorflow implementation of "Large Scale GAN Training for High Fidelity 
 6. NPU利用率
 当前网络是否下沉到昇腾Ascend910上训练，最直观的方法是在[ModelArts界面](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)上查看当前训练任务上的资源占用情况。如果NPU曲线的值不为0，那么肯定是下沉到了NPU上训练了。
 ![npu利用率](https://images.gitee.com/uploads/images/2021/0209/114309_f233454c_1482256.png "npu利用率.png")
+
+## 示例Demo<a name="section06691523142711"></a>
+
+- 以Alexnet为例，它的训练数据集为Flowers-Data-Set可以通过[**Obs链接**](https://zhonglin-public.obs.cn-north-4.myhuaweicloud.com/dataset/Flowers-Data-Set.zip)获取，训练代码可通过[**Gitee链接**](https://gitee.com/echo_lin/alexnet)获取。
