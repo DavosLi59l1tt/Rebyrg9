@@ -1,5 +1,18 @@
 ## BigGAN-Tensorflow<a name="section1358541031613"></a>
-Simple Tensorflow implementation of "Large Scale GAN Training for High Fidelity Natural Image Synthesis" (BigGAN)
+BigGAN 是一个经典的图像生成网络，DeepMind于2019年提出了BigGAN（Large Scale GAN Training For High Fidelity Natural Image Synthesis）缩小由GANs生成的图像与来自ImageNet数据集的真实世界图像之间的保真度和多样性的差距。BigGAN以最大规模训练生成性对抗网络，并研究了此种规模下特有的不稳定性。Ascend提供的BigGAN是基于TensorFlow实现的版本。
+
+## ModelArts/OBS/Pycharm ToolKit的关系
+在正式开始介绍如何操作之前，要跟大家解释一下在ModelArts上训练该如何存放数据。ModelArts是个执行训练任务的云服务平台，那想要执行训练肯定要先把数据集和训练脚本都传到云上。但是ModelArts本身是不带存储功能的，这就引出了在华为云上的一个存储服务OBS和Pycharm ToolKit插件工具。
+
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/173950_6be6a898_1482256.png "屏幕截图.png")
+- ModelArts平台
+    Modelarts平台是华为云面向AI开发者的一站式开发平台，它能够支撑开发者从数据到AI应用的全流程开发过程。包含数据处理、模型训练、模型管理、模型部署等操作，并且提供AI Gallery功能，能够在市场内与其他开发者分享模型。
+ - 对象存储服务OBS   
+    对象存储服务（Object Storage Service，OBS）是一个基于对象的海量存储服务，为客户提供海量、安全、高可靠、低成本的数据存储能力。
+ - Pycharm ToolKit插件
+    由于AI开发者会使用PyCharm工具开发算法或模型，为方便快速将本地代码提交到公有云的训练环境，ModelArts提供了一个PyCharm插件工具PyCharm ToolKit，协助用户完成代码上传、提交训练作业、将训练日志获取到本地展示等，用户只需要专注于本地的代码开发即可。
+
+OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台，数据集(训练脚本也可以)要从这里取。结合上边的图，当在本地Pycharm开发工具上开发的代码，通过Pycharm ToolKit向ModelArts提交训练任务（训练代码）时，同时需要从OBS下载(拉取)训练数据。同时，训练过程中的打印信息可以回传到Pycharm ToolKit中控制台显示，并且训练结果和文件可以往OBS上存储。
 
 ## 快速上手
 - 环境准备
