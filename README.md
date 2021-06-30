@@ -113,13 +113,9 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
 
    当前的模型的训练日志，可以通过IDE打屏，pycharm当前工程的文件夹MA\_LOG获取，甚至可以在配置界面上设置的log日志路径下获得。
 
-    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0117/221908_107fe5bc_1482256.png "屏幕截图.png")
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/174646_c4be361c_1482256.png "屏幕截图.png")
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161213_8dfb371f_1482256.png "屏幕截图.png")
 
 6. NPU利用率
 当前网络是否下沉到昇腾Ascend910上训练，最直观的方法是在[ModelArts界面](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)上查看当前训练任务上的资源占用情况。如果NPU曲线的值不为0，那么肯定是下沉到了NPU上训练了。
 ![npu利用率](https://images.gitee.com/uploads/images/2021/0209/114309_f233454c_1482256.png "npu利用率.png")
-
-## 示例Demo<a name="section06691523142711"></a>
-
-- 以Alexnet为例，它的训练数据集为Flowers-Data-Set可以通过[**Obs链接**](https://zhonglin-public.obs.cn-north-4.myhuaweicloud.com/dataset/Flowers-Data-Set.zip)获取，训练代码可通过[**Gitee链接**](https://gitee.com/echo_lin/alexnet)获取。
