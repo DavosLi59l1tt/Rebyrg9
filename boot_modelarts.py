@@ -37,7 +37,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_url", type=str, default="./output")
     parser.add_argument("--data_url", type=str, default="./dataset")
-    parser.add_argument("--cache_result_dir", type=str, default="/cache/result")
     config = parser.parse_args()
 
     print("--------config----------")
