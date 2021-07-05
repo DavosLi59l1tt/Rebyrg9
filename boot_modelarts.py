@@ -84,6 +84,6 @@ if __name__ == '__main__':
         mox.file.make_dirs(obs_npulog_dir)
     
     ## The npulogs of CANN version-20.1 are stored in '/var/log/npu/' path,
-    ## The npulogs of CANN version-20.2 are stored in '~/ascend/log/' path.
-    mox.file.copy_parallel('/var/log/npu/',obs_npulog_dir)
+    ## The npulogs of CANN version-20.2 are stored in '/home/work/ascend/log/' path.
+    mox.file.copy_parallel('/home/work/ascend/log/',obs_npulog_dir)
     print("Copy npu log folder end")
