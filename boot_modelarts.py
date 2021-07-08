@@ -77,13 +77,12 @@ if __name__ == '__main__':
     time_used = (end - start).seconds
 
     os.environ['SLOG_PRINT_TO_STDOUT'] = "1"
-    ## copy npulog from local to obs. Here you can obtain the host log.
-    print("Copy npu log folder start")
-    obs_npulog_dir = os.path.join(config.train_url, 'npulog')
-    if not mox.file.exists(obs_npulog_dir):
-        mox.file.make_dirs(obs_npulog_dir)
-    
-    ## The npulogs of CANN version-20.1 are stored in '/var/log/npu/' path,
-    ## The npulogs of CANN version-20.2 are stored in '/home/work/ascend/log/' path.
-    mox.file.copy_parallel('/home/work/ascend/log/',obs_npulog_dir)
-    print("Copy npu log folder end")
+    ## Copy 'samples' result images to obs directory.
+    print("Copy test result images start")
+    obs_result_dir = os.path.join(config.train_url, 'result')
+    if not mox.file.exists(obs_result_dir):
+        mox.file.make_dirs(obs_result_dir)
+
+    work_dir = os.getcwd()
+    samples_dir = os.path.join(work_dir, "samples")
+    mox.file.copy_parallel(samples_dir, obs_result_dir)

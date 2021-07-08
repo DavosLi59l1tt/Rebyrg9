@@ -243,9 +243,9 @@ class BigGAN(object):
         # tf.random.set_random_seed(1234)
         if self.custom_dataset:
             Image_Data_Class = ImageData(self.img_size, self.c_dim)
-            print('--- self.data---', self.data)
+            # print('--- self.data---', self.data)
             inputs = tf.data.Dataset.from_tensor_slices(self.data)
-            inputs = inputs.repeat(self.dataset_num).apply(map_and_batch(Image_Data_Class.image_processing, self.batch_size, num_parallel_batches=16, drop_remainder=True))
+            inputs = inputs.repeat(100 * self.dataset_num).apply(map_and_batch(Image_Data_Class.image_processing, self.batch_size, num_parallel_batches=16, drop_remainder=True))
 
             #inputs_iterator = inputs.make_one_shot_iterator()
             #inputs_iterator = inputs.make_initializable_iterator()
@@ -331,6 +331,9 @@ class BigGAN(object):
         # summary writer
         self.writer = tf.summary.FileWriter(self.log_dir + '/' + self.model_dir, self.sess.graph)
 
+        # Save graph file 
+        # tf.io.write_graph(self.sess.graph_def, './', 'biggan_graph.pbtxt')
+
         # restore check-point if it exits
         could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         if could_load:
@@ -342,7 +345,7 @@ class BigGAN(object):
             start_epoch = 0
             start_batch_id = 0
             counter = 1
-            print(" [!] Load failed...")
+            print(" [!] Train from scratch...")
 
         # loop for epoch
         start_time = time.time()
@@ -386,20 +389,23 @@ class BigGAN(object):
                 counter += 1
                 if g_loss == None :
                     g_loss = past_g_loss
-                if idx % 10 == 0:
-                    print("Epoch: [%2d] [%5d/%5d] time: %4.4f, d_loss: %.8f, g_loss: %.8f" \
+                if idx % 50 == 0:
+                    print("Epoch: [%3d] [%5d/%5d] time: %4.4f, d_loss: %.8f, g_loss: %.8f" \
                         % (epoch, idx, self.iteration, time.time() - start_time, d_loss, g_loss))
                     log_list.append("Epoch={}, step={}, time={}, d_loss={:.8f}, g_loss={:.8f}\n".format(epoch, idx, time.time() - start_time, d_loss, g_loss))    
 
-                # save training results for every 300 steps
-                if np.mod(idx+1, self.print_freq) == 0:
+                # save training results for every 500 steps
+                if np.mod(idx, self.print_freq) == 0:
                     samples = self.sess.run(self.fake_images, feed_dict={self.z: self.sample_z})
                     tot_num_samples = min(self.sample_num, self.batch_size)
                     manifold_h = int(np.floor(np.sqrt(tot_num_samples)))
                     manifold_w = int(np.floor(np.sqrt(tot_num_samples)))
+
+                    image_name = self.model_name + '_train_{:02d}_{:05d}.png'.format(epoch, idx)
+                    image_path = os.path.join(os.getcwd(), self.sample_dir, image_name)
                     save_images(samples[:manifold_h * manifold_w, :, :, :],
                                 [manifold_h, manifold_w],
-                                './' + self.sample_dir + '/' + self.model_name + '_train_{:02d}_{:05d}.png'.format(epoch, idx+1))
+                                image_path)
 
                 if np.mod(idx+1, self.save_freq) == 0:
                     self.save(self.checkpoint_dir, counter)
@@ -413,8 +419,8 @@ class BigGAN(object):
 
             # show temporal results
             # self.visualize_results(epoch)
-            with open(train_log_dir,'w') as f:
-                 f.writelines(log_list)
+            # with open(train_log_dir,'w') as f:
+                #  f.writelines(log_list)
 
         # save model for final step
         self.save(self.checkpoint_dir, counter)

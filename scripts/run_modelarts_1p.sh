@@ -6,8 +6,8 @@ export SLOG_PRINT_TO_STDOUT=0        ## export all logs to stdout terminal print
 python3.7 ${1}/main.py \
     --phase train \
     --dataset cat \
-    --epoch 1 \
-    --iteration 100 \
+    --epoch 10 \
+    --iteration 1000 \
     --batch_size 64 \
     --g_lr 0.0002 \
     --d_lr 0.0002 \
