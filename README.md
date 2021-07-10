@@ -73,7 +73,22 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
     运行成功，可以在Pycharm的界面上看到如下截图的打印。
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161847_262910b0_1482256.png "屏幕截图.png")
 
-    同时，可以进入[ModelArts控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，查看网络训练阶段的NPU利用率。
+    同时，在训练过程中，为了评判GAN网络生成器Generator当前已学习的情况，一定频率的保留了生成器的结果。
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/203625_043475d7_1482256.png "屏幕截图.png")
+    
+    **输入图片数据**是随机数，如下图
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204153_fa3e407c_1482256.png "BigGAN_train_00_00000.png")
+
+    **1个Epoch**时的结果，如下图
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204201_23bcb68e_1482256.png "BigGAN_train_01_00000.png")
+
+    **3个Epoch**时的结果，如下图
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204210_cea1cb65_1482256.png "BigGAN_train_03_00000.png")
+
+    **9个Epoch**时的结果，如下图
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204218_47012885_1482256.png "BigGAN_train_09_00000.png")
+
+    另外，可以进入[ModelArts控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，查看网络训练阶段的NPU利用率。
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/163406_f05586d7_1482256.png "屏幕截图.png")
 
 ## 其他<a name="section7271512256"></a>

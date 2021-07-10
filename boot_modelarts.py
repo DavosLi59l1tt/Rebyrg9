@@ -77,7 +77,7 @@ if __name__ == '__main__':
     time_used = (end - start).seconds
 
     os.environ['SLOG_PRINT_TO_STDOUT'] = "1"
-    ## Copy 'samples' result images to obs directory.
+    ## Copy learned generator result images to obs directory.
     print("Copy test result images start")
     obs_result_dir = os.path.join(config.train_url, 'result')
     if not mox.file.exists(obs_result_dir):
