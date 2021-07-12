@@ -4,7 +4,7 @@ BigGAN 是一个经典的图像生成网络，DeepMind于2019年提出了BigGAN�
 ## ModelArts/OBS/Pycharm ToolKit的关系
 在正式开始介绍如何操作之前，要跟大家解释一下在ModelArts上训练该如何存放数据。ModelArts是个执行训练任务的云服务平台，那想要执行训练肯定要先把数据集和训练脚本都传到云上。但是ModelArts本身是不带存储功能的，这就引出了在华为云上的一个存储服务OBS和Pycharm ToolKit插件工具。
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/173950_6be6a898_1482256.png "屏幕截图.png")
+<div align=center><img src="https://images.gitee.com/uploads/images/2021/0223/173950_6be6a898_1482256.png "/></div>
 - ModelArts平台
     Modelarts平台是华为云面向AI开发者的一站式开发平台，它能够支撑开发者从数据到AI应用的全流程开发过程。包含数据处理、模型训练、模型管理、模型部署等操作，并且提供AI Gallery功能，能够在市场内与其他开发者分享模型。
  - 对象存储服务OBS   
@@ -73,8 +73,8 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
     运行成功，可以在Pycharm的界面上看到如下截图的打印。
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161847_262910b0_1482256.png "屏幕截图.png")
 
-    同时，在训练过程中，为了评判GAN网络生成器Generator当前已学习的情况，一定频率的保留了生成器的结果。
-    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/203625_043475d7_1482256.png "屏幕截图.png")
+    同时，在训练过程中，为了评判GAN网络生成器Generator当前已学习的情况，一定频率的保留了生成器的结果。从下图可以看出，随着迭代次数的不断增加，生成器中猫的信息越丰富。
+    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0312/092610_b9561590_1482256.png "all.png")
     
     **输入图片数据**是随机数，如下图
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204153_fa3e407c_1482256.png "BigGAN_train_00_00000.png")
