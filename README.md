@@ -73,7 +73,10 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
     运行成功，可以在Pycharm的界面上看到如下截图的打印。
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161847_262910b0_1482256.png "屏幕截图.png")
 
-    同时，在训练过程中，为了评判GAN网络生成器Generator当前已学习的情况，一定频率的保留了生成器的结果。从下图可以看出，随着迭代次数的不断增加，生成器中猫的信息越丰富。
+    同时，为了评判GAN网络生成器Generator当前已学习的情况，在训练过程中一定频率的保留了生成器的结果。保存的数据可以在已配置的OBS PATH路径下的result文件夹查看，本示例设置的OBS PATH路径为 **/linccnu/log**
+    <div align=center><img src="https://images.gitee.com/uploads/images/2021/0312/094836_9bdcf8ed_1482256.png"/></div>
+    将result文件夹从OBS下载到本地磁盘，可以看出随着迭代次数的不断增加，生成器中猫的信息越丰富。
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0312/092610_b9561590_1482256.png "all.png")
     
     **输入图片数据**是随机数，如下图
