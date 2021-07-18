@@ -76,31 +76,29 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
     同时，为了评判GAN网络生成器Generator当前已学习的情况，在训练过程中设置了每500个迭代保存了生成器的结果。保存的数据可以在已配置的OBS PATH路径下的result文件夹查看，本示例设置的OBS PATH路径为 **/linccnu/log**
     <div align=center><img src="https://images.gitee.com/uploads/images/2021/0312/094836_9bdcf8ed_1482256.png"/></div>
     将result文件夹从OBS下载到本地磁盘，可以看出随着迭代次数的不断增加，生成器中猫的信息越丰富。
-
-    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0312/092610_b9561590_1482256.png "all.png")
     
-    **输入图片数据**是随机数，如下图
+    <div align=center><img src="https://images.gitee.com/uploads/images/2021/0312/092610_b9561590_1482256.png"/></div>
+    
+    **输入图片数据**是随机数
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204153_fa3e407c_1482256.png "BigGAN_train_00_00000.png")
 
-    **1个Epoch**时的结果，如下图
+    **1个Epoch**时的结果
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204201_23bcb68e_1482256.png "BigGAN_train_01_00000.png")
 
-    **3个Epoch**时的结果，如下图
+    **3个Epoch**时的结果
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204210_cea1cb65_1482256.png "BigGAN_train_03_00000.png")
 
-    **9个Epoch**时的结果，如下图
+    **9个Epoch**时的结果
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204218_47012885_1482256.png "BigGAN_train_09_00000.png")
 
     值得注意的是，上述效果是在默认训练Epoch数为10，训练耗时大概需要30 minus情况下得到的。如果想要生成更丰富的结果，开发者可以在run_modelarts_1p.sh脚本中修改epoch数的值。但需要提醒的是，链接中获取的cat数据集，只是[**官方数据集**](https://www.kaggle.com/crawford/cat-dataset)的一部分。如需训练最终想要的结果，需要下载全量数据集进行多个Epoch的训练。
-
-    另外，可以进入[ModelArts控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，查看网络训练阶段的NPU利用率。
-    ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/163406_f05586d7_1482256.png "屏幕截图.png")
 
 ## 其他<a name="section7271512256"></a>
 1. Modelarts的运行机理
    
    Modelarts每启动一个任务，会根据选择的AI Engine配置，创建一个全新的Docker容器，当训练结束或者异常时，会自动销毁该容器和释放占用的NPU资源，并删除上面的代码和数据。
     ![输入图片说明](https://images.gitee.com/uploads/images/2020/1128/192306_80158e80_8267113.png "zh-cn_image_0295927369.png")
+
 2. 关于OBS
   
     **Obs\(Object Storage Service\)对象存储服务是s3协议，我们该路径不能直接在训练代码中使用**，需要使用moxing的接口mox.file.copy\_parallel\([https://support.huaweicloud.com/moxing-devg-modelarts/modelarts\_11\_0005.html](https://support.huaweicloud.com/moxing-devg-modelarts/modelarts_11_0005.html)\)将训练数据从obs文件夹中拷贝到modelarts任务容器中。另外，modelarts创建的NPU模板容器，ModelArts会挂载硬盘至“/cache”目录，用户可以使用此目录来储存临时文件。“/cache”与代码目录共用资源，不同资源规格有不同的容量。其中ascend NPU下具有3T的容量大小。https://support.huaweicloud.com/modelarts\_faq/modelarts\_05\_0090.html
