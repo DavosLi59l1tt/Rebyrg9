@@ -29,12 +29,15 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
 - 下载数据集和训练代码
     
     训练的部分数据集和训练代码可以通过[链接下载](https://zhonglin-public.obs.cn-north-4.myhuaweicloud.com/BigGAN.rar)到本地，并解压到当前文件夹。BigGAN压缩包下有源码BigGANProject和数据集zip。数据集cat.zip不用解压。
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/154527_d07136ec_1482256.png "屏幕截图.png")
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/154703_99054883_1482256.png "屏幕截图.png")
 
 - 数据集部署
 
     在"华北-北京4"区域创建OBS桶，并将下载的数据集cat.zip上传到OBS中的某个桶路径中。如下截图是当前我的路径。
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/155718_1c07454a_1482256.png "屏幕截图.png")
 
 - 训练代码部署(Pycharm)
@@ -64,6 +67,7 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
         ![log日志](https://images.gitee.com/uploads/images/2021/0117/214343_08416265_1482256.png "log日志.png")
 
     3. "Data Path in OBS"是数据准备阶段存放的模型训练需要的OBS全路径，比如我在obs存放的示例训练数据集截图如下。**注意**，不是每个网络的训练数据集都是按 train 和 val 划分的，此处只是讲解如何配置"Data Path in OBS"参数路径。
+
        ![训练数据集](https://images.gitee.com/uploads/images/2021/0223/160941_58d97320_1482256.png "训练数据集.png")
 
         那么在"Data Path in OBS" 我填写**/zhonglin-public/dataset/cat/**。注意没有“**obs:/**”打头的字段。另外，里面的数据可以是原始的jpeg图片，也可以是离线转好的tfrecords数据。如果图片数据量很大，建议害是tfrecords数据，因为小文件在OBS传输时比较费时；同时，在模型训练时，可以分batch将训练数据加载进内存中，否则容易撑爆内存。
@@ -71,24 +75,30 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
 - 运行结果
     
     可以在Pycharm的界面上看到如下截图的打印。
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161847_262910b0_1482256.png "屏幕截图.png")
 
     同时，为了评判GAN网络生成器Generator当前已学习的情况，在训练过程中设置了每500个迭代保存了生成器的结果。保存的数据可以在已配置的OBS PATH路径下的result文件夹查看，本示例设置的OBS PATH路径为 **/linccnu/log**
+    
     <div align=center><img src="https://images.gitee.com/uploads/images/2021/0312/094836_9bdcf8ed_1482256.png"/></div>
     将result文件夹从OBS下载到本地磁盘，可以看出随着迭代次数的不断增加，生成器中猫的信息越丰富。
     
     <div align=center><img src="https://images.gitee.com/uploads/images/2021/0312/092610_b9561590_1482256.png"/></div>
     
     **输入图片数据**是随机数
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204153_fa3e407c_1482256.png "BigGAN_train_00_00000.png")
 
     **1个Epoch**时的结果
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204201_23bcb68e_1482256.png "BigGAN_train_01_00000.png")
 
     **3个Epoch**时的结果
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204210_cea1cb65_1482256.png "BigGAN_train_03_00000.png")
 
     **9个Epoch**时的结果
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0311/204218_47012885_1482256.png "BigGAN_train_09_00000.png")
 
     值得注意的是，上述效果是在默认训练Epoch数为10，训练耗时大概需要30 minus情况下得到的。如果想要生成更丰富的结果，开发者可以在run_modelarts_1p.sh脚本中修改epoch数的值。但需要提醒的是，链接中获取的cat数据集，只是[**官方数据集**](https://www.kaggle.com/crawford/cat-dataset)的一部分。如需训练最终想要的结果，需要下载全量数据集进行多个Epoch的训练。
@@ -97,6 +107,7 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
 1. Modelarts的运行机理
    
    Modelarts每启动一个任务，会根据选择的AI Engine配置，创建一个全新的Docker容器，当训练结束或者异常时，会自动销毁该容器和释放占用的NPU资源，并删除上面的代码和数据。
+
     ![输入图片说明](https://images.gitee.com/uploads/images/2020/1128/192306_80158e80_8267113.png "zh-cn_image_0295927369.png")
 
 2. 关于OBS
@@ -132,6 +143,7 @@ OBS可以把它理解为云上的一块大硬盘。ModelArts作为训练平台�
    当前的模型的训练日志，可以通过IDE打屏，pycharm当前工程的文件夹MA\_LOG获取，甚至可以在配置界面上设置的log日志路径下获得。
 
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/174646_c4be361c_1482256.png "屏幕截图.png")
+    
     ![输入图片说明](https://images.gitee.com/uploads/images/2021/0223/161213_8dfb371f_1482256.png "屏幕截图.png")
 
 6. NPU利用率
